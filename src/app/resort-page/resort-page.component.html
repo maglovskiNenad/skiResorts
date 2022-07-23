@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-4">
+    <img [src]="resort.picture" width="100%" />
+  </div>
+  <div class="col-8">
+    <h3>
+      {{ resort.name }}, <small>{{ resort.country }}</small>
+    </h3>
+    <p>{{ resort.description }}</p>
+    <p>
+      Elevation: {{ resort.base_elevation_m }}, Highest Point:
+      {{ resort.highest_point }}, Top Elevetaion: {{ resort.top_elevation_m }}
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <ul
+    ngbNav
+    #nav="ngbNav"
+    [(activeId)]="activeTab"
+    class="nav-tabs text-center"
+  >
+    <li [ngbNavItem]="1" class="col">
+      <a ngbNavLink>Tracks</a>
+      <ng-template ngbNavContent>
+        <app-tracks
+          [tracks]="tracks"
+          (sortChange)="onTrackSort($event)"
+        ></app-tracks>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2" class="col">
+      <a ngbNavLink>Weather</a>
+      <ng-template ngbNavContent>
+        <app-weather></app-weather>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3" class="col">
+      <a ngbNavLink>Ski Pass</a>
+      <ng-template ngbNavContent>
+        <app-ski-pass
+          [skipass]="skipass"
+          (newReservation)="postReservation($event)"
+        ></app-ski-pass>
+      </ng-template>
+    </li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</div>
